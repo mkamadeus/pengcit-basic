@@ -72,7 +72,7 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
     methods (Access = public)
         function refresh(obj)
             % Update Axes 1 Values
-            if obj.Values1 ~= zeros(1, 256)
+            if max(obj.Values1(:)) ~= 0
                 x = 0:(size(obj.Values1, 2)-1);
                 y = obj.Values1;
                 bar(obj.Axes1, x, y);
@@ -82,7 +82,7 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             end
 
             % Update Axes 2 Values
-            if obj.Values2 ~= zeros(1, 256)
+            if max(obj.Values2(:)) ~= 0
                 x = 0:(size(obj.Values2, 2)-1);
                 y = obj.Values2;
                 bar(obj.Axes2, x, y);
@@ -92,7 +92,7 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             end
 
             % Update Axes 3 Values
-            if obj.Values3 ~= zeros(1, 256)
+            if max(obj.Values3(:)) ~= 0
                 x = 0:(size(obj.Values3, 2)-1);
                 y = obj.Values3;
                 bar(obj.Axes3, x, y);
