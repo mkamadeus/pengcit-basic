@@ -30,10 +30,12 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             xlabel(obj.Axes1, 'X')
             ylabel(obj.Axes1, 'Y')
             zlabel(obj.Axes1, 'Z')
-            obj.Axes1.XTick = [0 0.125 0.25 0.375 0.5 0.625 0.75 0.875 1];
-            obj.Axes1.XTickLabel = {'0'; '32'; '64'; '96'; '128'; '160'; '192'; '224'; '256'};
+            obj.Axes1.Title.String = "Red";
             obj.Axes1.Layout.Row = 1;
             obj.Axes1.Layout.Column = 1;
+            obj.Axes1.XLimMode = 'manual';
+            obj.Axes1.XLim = [0 256];
+            obj.Axes1.XTick = 0:32:256;
 
             % Create App1Axes2
             obj.Axes2 = uiaxes(obj.HistGrid);
@@ -41,10 +43,12 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             xlabel(obj.Axes2, 'X')
             ylabel(obj.Axes2, 'Y')
             zlabel(obj.Axes2, 'Z')
-            obj.Axes2.XTick = [0 0.125 0.25 0.375 0.5 0.625 0.75 0.875 1];
-            obj.Axes2.XTickLabel = {'0'; '32'; '64'; '96'; '128'; '160'; '192'; '224'; '256'};
+            obj.Axes2.Title.String = "Green";
             obj.Axes2.Layout.Row = 2;
             obj.Axes2.Layout.Column = 1;
+            obj.Axes2.XLimMode = 'manual';
+            obj.Axes2.XLim = [0 256];
+            obj.Axes2.XTick = 0:32:256;
 
             % Create App1Axes3
             obj.Axes3 = uiaxes(obj.HistGrid);
@@ -52,41 +56,65 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             xlabel(obj.Axes3, 'X')
             ylabel(obj.Axes3, 'Y')
             zlabel(obj.Axes3, 'Z')
-            obj.Axes3.XTick = [0 0.125 0.25 0.375 0.5 0.625 0.75 0.875 1];
-            obj.Axes3.XTickLabel = {'0'; '32'; '64'; '96'; '128'; '160'; '192'; '224'; '256'};
+            obj.Axes3.Title.String = "Blue";
             obj.Axes3.Layout.Row = 3;
             obj.Axes3.Layout.Column = 1;
+            obj.Axes3.XLimMode = 'manual';
+            obj.Axes3.XLim = [0 256];
+            obj.Axes3.XTick = 0:32:256;
         end 
 
         function update(obj)
+           
+        end
+    end
+
+    methods (Access = public)
+        function refresh(obj)
             % Update Axes 1 Values
-            x = 0:(size(obj.Values1, 2)-1);
-            y = obj.Values1;
-            bar(obj.Axes1, x, y);
-            obj.Axes1.XTick = 0:32:256;
+            if obj.Values1 ~= zeros(1, 256)
+                x = 0:(size(obj.Values1, 2)-1);
+                y = obj.Values1;
+                bar(obj.Axes1, x, y);
+                obj.Axes1.XTick = 0:32:256;
+            else
+                cla(obj.Axes1);
+            end
 
             % Update Axes 2 Values
-            x = 0:(size(obj.Values2, 2)-1);
-            y = obj.Values2;
-            bar(obj.Axes2, x, y);
-            obj.Axes2.XTick = 0:32:256;
+            if obj.Values2 ~= zeros(1, 256)
+                x = 0:(size(obj.Values2, 2)-1);
+                y = obj.Values2;
+                bar(obj.Axes2, x, y);
+                obj.Axes2.XTick = 0:32:256;
+            else
+                cla(obj.Axes2);
+            end
 
             % Update Axes 3 Values
-            x = 0:(size(obj.Values3, 2)-1);
-            y = obj.Values3;
-            bar(obj.Axes3, x, y);
-            obj.Axes3.XTick = 0:32:256;
+            if obj.Values3 ~= zeros(1, 256)
+                x = 0:(size(obj.Values3, 2)-1);
+                y = obj.Values3;
+                bar(obj.Axes3, x, y);
+                obj.Axes3.XTick = 0:32:256;
+            else
+                cla(obj.Axes3);
+            end
             
             % Update histogram count
             if obj.HistType == HistogramType.Color
                 obj.HistGrid.RowHeight = {'1x', '1x', '1x'};
+                obj.Axes1.Title.String = "Red";
                 obj.Axes2.Visible = true;
                 obj.Axes3.Visible = true;
             else
                 obj.HistGrid.RowHeight = {'1x', '0x', '0x'};
+                obj.Axes1.Title.String = "Gray";
                 obj.Axes2.Visible = false;
                 obj.Axes3.Visible = false;
             end
+
+            drawnow();
         end
     end
 end
