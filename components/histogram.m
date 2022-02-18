@@ -75,7 +75,7 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             if max(obj.Values1(:)) ~= 0
                 x = 0:(size(obj.Values1, 2)-1);
                 y = obj.Values1;
-                bar(obj.Axes1, x, y);
+                area(obj.Axes1, x, y);
                 obj.Axes1.XTick = 0:32:256;
             else
                 cla(obj.Axes1);
@@ -85,7 +85,7 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             if max(obj.Values2(:)) ~= 0
                 x = 0:(size(obj.Values2, 2)-1);
                 y = obj.Values2;
-                bar(obj.Axes2, x, y);
+                area(obj.Axes2, x, y);
                 obj.Axes2.XTick = 0:32:256;
             else
                 cla(obj.Axes2);
@@ -95,7 +95,7 @@ classdef histogram < matlab.ui.componentcontainer.ComponentContainer
             if max(obj.Values3(:)) ~= 0
                 x = 0:(size(obj.Values3, 2)-1);
                 y = obj.Values3;
-                bar(obj.Axes3, x, y);
+                area(obj.Axes3, x, y);
                 obj.Axes3.XTick = 0:32:256;
             else
                 cla(obj.Axes3);
