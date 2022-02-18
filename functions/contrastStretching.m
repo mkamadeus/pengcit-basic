@@ -17,7 +17,7 @@ function output = contrastStretching(input, a, b)
     disp(rmax);
        
     % instantiate output
-    output = zeros(image_size);
+    output = zeros(image_size, 'uint8');
     
     % c o n t r a s t s t r e c h i n g
     for i= 1:image_size(1)
@@ -28,7 +28,6 @@ function output = contrastStretching(input, a, b)
                 output(i, j) = 255;
             else
                 output(i, j) = floor(double(255) * double(input(i, j) - rmin) / double(rmax - rmin));
-                % disp(output(i,j))
             end
         end
     end
