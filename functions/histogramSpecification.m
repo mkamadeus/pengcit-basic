@@ -1,9 +1,8 @@
 function newimage = histogramSpecification(image, spec)
     
+    % init values
     hist = histogramz(image);
     image_size = size(image);
-    disp(class(image_size));
-
     histeq = zeros(256);
     speceq = zeros(256);
     invhist = zeros(256);
@@ -26,7 +25,7 @@ function newimage = histogramSpecification(image, spec)
         speceq(i) = floor(255*sum);
     end
        
-    % inversetransform
+    % inversetransform histogram
     for i=1:256
         minj = 1;
         minval = abs(histeq(i) - speceq(minj));
@@ -40,7 +39,8 @@ function newimage = histogramSpecification(image, spec)
 
         invhist(i) = minj;
     end
-
+    
+    % remap image to new histogram
     newimage = zeros(image_size, 'uint8');
     for i=1:image_size(1)
         for j=1:image_size(2)
